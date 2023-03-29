@@ -6,15 +6,15 @@ import AVFoundation
 //-----------------------------------------
 //-----------------------------------------
 
-let speechSynthesizer = AVSpeechSynthesizer()
-let utterance: AVSpeechUtterance = {
-    let utterance = AVSpeechUtterance(string: "우  르  릉  쾅 쾅 ㅋㅋㅋㅋ")
-    
-    utterance.voice = AVSpeechSynthesisVoice(language: "ko-KR")
-    utterance.rate = 0.5
-    
-    return utterance
-}()
+//let speechSynthesizer = AVSpeechSynthesizer()
+//let utterance: AVSpeechUtterance = {
+//    let utterance = AVSpeechUtterance(string: "우  르  릉  쾅 쾅 ㅋㅋㅋㅋ")
+//    
+//    utterance.voice = AVSpeechSynthesisVoice(language: "ko-KR")
+//    utterance.rate = 0.5
+//    
+//    return utterance
+//}()
 
 
 //-----------------------------------------
@@ -82,7 +82,7 @@ struct FloatingWordView: View {
                 .gesture(
                     TapGesture()
                         .onEnded({ 
-                            speechSynthesizer.speak(utterance)
+//                            speechSynthesizer.speak(utterance)
                             withAnimation(.linear(duration: 4.5)) {
                                 thunder = true
                             }
