@@ -4,8 +4,9 @@ import SwiftUI
 struct MyApp: App {
     var body: some Scene {
         WindowGroup {
-            FloatingWordsView()
+            Scene2View()
         }
     }
-//    func PlaygroundPage.current.setLiveView(FrustrationGameView())
+
 }
+
