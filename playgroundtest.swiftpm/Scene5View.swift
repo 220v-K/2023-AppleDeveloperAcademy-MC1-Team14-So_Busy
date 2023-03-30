@@ -18,45 +18,45 @@ struct Scene5View: View {
     // 양봉,음봉 여부 / 박스 길이 / 윗 선 길이 / 아랫 선 길이 / 현재 y축
     @State var stocks: [(Bool, Double, Double, Double, Double)] = []
     @State var stockLength: [Int] = []
-
-    
-    
     
     var body: some View {
-        HStack(spacing: 0) {
+        HStack(spacing: .zero) {
             ZStack {
+                Image("Frame_left").resizable()
                 VStack{
+                    Spacer().frame(height: 40)
                     ZStack{
                         // 주식 그래프 표시
                         VStack{
                             Spacer()
                             HStack(alignment: .bottom){
+                                Spacer().frame(width: 50)
                                 ForEach(stockLength, id: \.self) { index in
                                     stockLineBox(isPlus: stocks[index].0, boxHeight: stocks[index].1, upLineHeight: stocks[index].2, downLineHeight: stocks[index].3, height: stocks[index].4)
                                 }
                                 Spacer()
+                                Spacer().frame(width: 20)
                             }
-                        }.frame(width: screenWidth)
+                        }
                         VStack{
                             Spacer()
                             ForEach(views, id: \.self) { viewIsMine in
                                 HStack {
-                                    if viewIsMine{ Spacer() } else { Spacer().frame(width: 10) }
+                                    if viewIsMine{ Spacer() } else { Spacer().frame(width: 30) }
                                     ChatBubble(isMine: viewIsMine).frame(width: 150, height: 80)
-                                    if viewIsMine{ Spacer().frame(width: 10) } else { Spacer() }
+                                    if viewIsMine{ Spacer().frame(width: 20) } else { Spacer() }
                                 }
                             }
                         }
                     }
                     chatBottom(views : $views, stocks : $stocks, stockLength: $stockLength)
+                    Spacer().frame(height: 40)
                 }
-                ScaledToFitImage(fileName: "Frame_left")
             }
-            ScaledToFitImage(fileName: "Frame_right_5Click")
-                .onTapGesture {
+            FrameLeftView(sceneNum: $sceneNum).onTapGesture {
                     sceneNum += 1
                 }
-        }
+        }.ignoresSafeArea()
     }
 }
 
@@ -139,7 +139,7 @@ struct chatBottom: View{
     
     var body: some View{
         HStack{
-            Spacer().frame(width: 20)
+            Spacer().frame(width: 30)
             Button(action: {
                 
             }) {
@@ -156,11 +156,12 @@ struct chatBottom: View{
                 .background(.white)
                 .textFieldStyle(.roundedBorder)
                 .disabled(true)
+                .frame(width: 800)
             
             Button(action: {
                 views.append(isMineToggle)
                 isMineToggle.toggle()
-                if(views.count >= 9){
+                if(views.count >= 8 ){
                     views.removeFirst()
                     // 양봉 음봉 랜덤 추가 (3:7정도의 비율과 확률, 양봉의 길이가 더 길 수 있도록 확률 높이기)
                     addStockLine(stocks: stocks)
@@ -190,10 +191,15 @@ struct chatBottom: View{
         let stock:(Bool, Double, Double, Double, Double) = (isPlus, isPlus ? randomHeightOfBox : randomHeightOfBox2, randomHeightOfUpLine, randomHeightOfDownLine, aboveHeight)
         
         self.stocks.append(stock)
+        if(stockLength.count >= 24){
+            self.stocks.removeFirst()
+        }
         
-        self.stockLength.append(self.index)
-        self.index += 1
-
+        
+        if(stockLength.count < 25){
+            self.stockLength.append(self.index)
+            self.index += 1
+        }
         nowHeight = aboveHeight
     }
 }
