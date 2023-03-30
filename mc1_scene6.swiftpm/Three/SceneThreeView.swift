@@ -15,8 +15,8 @@ struct SceneThreeView: View {
         HStack(spacing: 0) {
             ZStack {
                 GeometryReader { geometry in
-                    Color.blue
-                    CookiesView(size: geometry.size.height / 5)
+                    BackgroundView(name: "scene3background")
+                    CookiesView(size: geometry.size.height / 3)
                     Color.black
                         .opacity(opacity)
                     TapeImageView(type: TapeImage.body)
@@ -29,10 +29,7 @@ struct SceneThreeView: View {
                                 })
                         )
                 }
-                
             }
-//            Image("frame_right")
-//                .resizable()
             TapeImageView(type: TapeImage.button)
         }
         .ignoresSafeArea()
@@ -42,8 +39,8 @@ struct SceneThreeView: View {
     func CookiesView(size: CGFloat) -> some View {
         Group {
             ForEach(cookies.indices, id: \.self) { index in
-                Image("cookie_1")
-                    .resizable()
+                BackgroundView(name:"3_paper_1")
+//                    .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: size, height: size)
                     .offset(x:cookies[index].x, y: cookies[index].y)
@@ -51,10 +48,9 @@ struct SceneThreeView: View {
                     .onAppear {
                         withAnimation(.easeInOut(duration: 1)) {
                             cookies[index].isAdded = true
-                            
                         }
                         withAnimation(.easeInOut(duration: 2)) {
-                            self.opacity = Double(cookies.count) / 6.0
+                            self.opacity = Double(cookies.count) / 12
                         }
                     }
             }
