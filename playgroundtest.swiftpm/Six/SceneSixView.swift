@@ -12,9 +12,9 @@ struct SceneSixView: View {
         HStack(spacing: 0) {
             ZStack {
                 VideoView(videoNames: ["video2", "video"])
-                ScaledToFitImage(fileName: "Frame_left")
+                ScaledToFitImage(fileName: Frame.body)
             }
-            ScaledToFitImage(fileName: "Frame_right_6Click")
+            ScaledToFitImage(fileName: Frame.ButtonClicked.six)
         }
         .ignoresSafeArea()
     }
