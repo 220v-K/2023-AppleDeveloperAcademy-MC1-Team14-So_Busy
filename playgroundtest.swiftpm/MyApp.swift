@@ -2,7 +2,7 @@ import SwiftUI
 
 @main
 struct MyApp: App {
-    @State var sceneNum: Int = 5
+    @State var sceneNum: Int = 1
     
     var body: some Scene {
         WindowGroup {
