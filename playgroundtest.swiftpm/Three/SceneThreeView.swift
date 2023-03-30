@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SceneThreeView: View {
+    @Binding var sceneNum: Int
+    
     @State private var papers = [Paper]()
     @State private var opacity = 0.01
     let onceCount = 3
@@ -16,11 +18,11 @@ struct SceneThreeView: View {
         HStack(spacing: 0) {
             ZStack {
                 GeometryReader { geometry in
-                    Image("bg_3")
+                    ScaledToFitImage(fileName: "bg_3")
                     CookiesView(size: geometry.size.height / 3)
                     Color.black
                         .opacity(opacity)
-                    TapeImageView(type: TapeImage.body)
+                    ScaledToFitImage(fileName: "Frame_left")
                         .gesture(
                             DragGesture(minimumDistance: 0)
                                 .onEnded({ value in
@@ -41,7 +43,10 @@ struct SceneThreeView: View {
                         )
                 }
             }
-            TapeImageView(type: TapeImage.button)
+            ScaledToFitImage(fileName: "Frame_right_3Click")
+                .onTapGesture {
+                    sceneNum += 1
+                }
         }
         .ignoresSafeArea()
     }

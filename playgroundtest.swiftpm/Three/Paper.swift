@@ -6,7 +6,7 @@
 //
 import Foundation
 
-// Cookie Model...
+// Paper Model
 struct Paper: Identifiable {
     var id = UUID()
     var name: String

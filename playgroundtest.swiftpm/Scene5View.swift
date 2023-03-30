@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct Scene5View: View {
+    @Binding var sceneNum: Int
+    
+    
     let screenWidth = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
     
@@ -20,30 +23,39 @@ struct Scene5View: View {
     
     
     var body: some View {
-        VStack{
-            ZStack{
-                // 주식 그래프 표시
+        HStack(spacing: 0) {
+            ZStack {
                 VStack{
-                    Spacer()
-                    HStack(alignment: .bottom){
-                        ForEach(stockLength, id: \.self) { index in
-                            stockLineBox(isPlus: stocks[index].0, boxHeight: stocks[index].1, upLineHeight: stocks[index].2, downLineHeight: stocks[index].3, height: stocks[index].4)
+                    ZStack{
+                        // 주식 그래프 표시
+                        VStack{
+                            Spacer()
+                            HStack(alignment: .bottom){
+                                ForEach(stockLength, id: \.self) { index in
+                                    stockLineBox(isPlus: stocks[index].0, boxHeight: stocks[index].1, upLineHeight: stocks[index].2, downLineHeight: stocks[index].3, height: stocks[index].4)
+                                }
+                                Spacer()
+                            }
+                        }.frame(width: screenWidth)
+                        VStack{
+                            Spacer()
+                            ForEach(views, id: \.self) { viewIsMine in
+                                HStack {
+                                    if viewIsMine{ Spacer() } else { Spacer().frame(width: 10) }
+                                    ChatBubble(isMine: viewIsMine).frame(width: 150, height: 80)
+                                    if viewIsMine{ Spacer().frame(width: 10) } else { Spacer() }
+                                }
+                            }
                         }
-                        Spacer()
                     }
-                }.frame(width: screenWidth)
-                VStack{
-                    Spacer()
-                    ForEach(views, id: \.self) { viewIsMine in
-                        HStack {
-                            if viewIsMine{ Spacer() } else { Spacer().frame(width: 10) }
-                            ChatBubble(isMine: viewIsMine).frame(width: 150, height: 80)
-                            if viewIsMine{ Spacer().frame(width: 10) } else { Spacer() }
-                        }
-                    }
+                    chatBottom(views : $views, stocks : $stocks, stockLength: $stockLength)
                 }
+                ScaledToFitImage(fileName: "Frame_left")
             }
-            chatBottom(views : $views, stocks : $stocks, stockLength: $stockLength)
+            ScaledToFitImage(fileName: "Frame_right_5Click")
+                .onTapGesture {
+                    sceneNum += 1
+                }
         }
     }
 }
