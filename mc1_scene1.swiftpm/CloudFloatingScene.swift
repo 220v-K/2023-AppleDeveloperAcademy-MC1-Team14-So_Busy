@@ -39,10 +39,12 @@ class CloudFloatingScene: SKScene {
         if isRemoved == false
         {
             let cloudText = ["성장", "성장지표", "피드백", "대화", "회고", "네트워크","성장환경", "함께", "동기부여", "성장 도움"]
+            let cloudImageNames: [String] = ["1_cloud_1", "1_cloud_2", "1_cloud_3"]
             let cloudLable = SKLabelNode(text: cloudText.randomElement())
             
             // Load the image from your assets folder
-            let cloudImage = UIImage(named: "actualCloud")
+            let cloudImage = UIImage(named: cloudImageNames.randomElement() ?? "1_cloud_1")
+
             // Create a texture from the image
             let cloudTexture = SKTexture(image: cloudImage!)
             // Create a sprite node that matches the size of the image
@@ -51,15 +53,17 @@ class CloudFloatingScene: SKScene {
             // Set the position of the shape node
             cloudShape.position = location
             // Cloud Size
-            cloudShape.setScale(0.2)
+            cloudShape.setScale(0.17)
             // Adjust Opacity
             cloudShape.alpha = 0.6
             
+            
             cloudLable.position = CGPoint(x: 10 , y: -50)
             cloudLable.fontSize = 150
-            cloudLable.fontColor = .white
+            cloudLable.fontColor = .black
             cloudLable.fontName = "AvenirNext-Bold"
-        
+            cloudLable.alpha = 0.8
+            
             cloudShape.addChild(cloudLable)
             
             cloudShape.physicsBody = SKPhysicsBody(circleOfRadius: radSize)
