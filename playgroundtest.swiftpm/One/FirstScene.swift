@@ -8,7 +8,7 @@ import AVFoundation
 struct FirstScene: View {
     @StateObject private var soundManager = SoundManager()
     @Binding var sceneNum: Int
-    @State private var opacity = 0.0
+    @State private var opacity = 1.0
     @State var rightImage: String = Frame.ButtonClicked.none
 
     @State var currentScene: SKScene?
@@ -26,20 +26,21 @@ struct FirstScene: View {
     var body: some View {
         HStack(spacing: 0) {
             ZStack {
-                ScaledToFitImage(fileName: Frame.body)
+                Rectangle()
+                    .foregroundColor(.black)
+                    .zIndex(1)
                 
+                ScaledToFitImage(fileName: Frame.body)
+                    .zIndex(2)
+
                 SpriteView(scene: scene)
                     .frame(width: 940, height: 765)
                     .cornerRadius(CGFloat(20))
                     .padding(.leading, 20)
                     .padding(.bottom, 5)
-                    .zIndex(1)
-                
-                Rectangle()
-                    .foregroundColor(.black)
-                    .opacity(opacity)
-                    .zIndex(2)
+                    .zIndex(3)
                     .animation(.easeOut(duration: 1.5), value: opacity)
+
             }
             
             ScaledToFitImage(fileName: rightImage)
@@ -61,13 +62,13 @@ struct FirstScene: View {
                         if (x > 46) && (x < 124) && (y > 650) && (y < 730) {
                             rightImage = "Frame_right_RewClick"
                             opacity = 0
-                            sceneNum = 1
+                            sceneNum = 0
                         } else if (x > 46) && (x < 124) && (y > 550) && (y < 635) {
                             rightImage = "Frame_right_1Click"
-                            opacity = 0
+                            opacity = 1
                         } else if (x > 46) && (x < 124) && (y > 460) && (y < 550) {
                             rightImage = "Frame_right_2Click"
-                            opacity = 1
+                            opacity = 0
                             sceneNum = 2
                         } else if (x > 46) && (x < 124) && (y > 360) && (y < 450) {
                             rightImage = "Frame_right_3Click"
