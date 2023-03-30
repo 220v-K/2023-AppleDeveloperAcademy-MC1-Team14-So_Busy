@@ -9,36 +9,41 @@ import SwiftUI
 
 struct Scene5View: View {
     let screenWidth = UIScreen.main.bounds.width
+    let screenHeight = UIScreen.main.bounds.height
     
     @State private var views: [Bool] = []
     // 양봉,음봉 여부 / 박스 길이 / 윗 선 길이 / 아랫 선 길이 / 현재 y축
     @State var stocks: [(Bool, Double, Double, Double, Double)] = []
     @State var stockLength: [Int] = []
+
+    
     
     
     var body: some View {
-        ZStack{
-            // 주식 그래프 표시
-            VStack{
-                Spacer()
-                HStack(alignment: .bottom){
-                    ForEach(stockLength, id: \.self) { index in
-                        stockLineBox(isPlus: stocks[index].0, boxHeight: stocks[index].1, upLineHeight: stocks[index].2, downLineHeight: stocks[index].3, height: stocks[index].4)
-                    }
+        VStack{
+            ZStack{
+                // 주식 그래프 표시
+                VStack{
                     Spacer()
-                }
-            }.frame(width: screenWidth)
-            VStack{
-                Spacer()
-                ForEach(views, id: \.self) { viewIsMine in
-                    HStack {
-                        if viewIsMine{ Spacer() } else { Spacer().frame(width: 10) }
-                        ChatBubble(isMine: viewIsMine).frame(width: 150, height: 80)
-                        if viewIsMine{ Spacer().frame(width: 10) } else { Spacer() }
+                    HStack(alignment: .bottom){
+                        ForEach(stockLength, id: \.self) { index in
+                            stockLineBox(isPlus: stocks[index].0, boxHeight: stocks[index].1, upLineHeight: stocks[index].2, downLineHeight: stocks[index].3, height: stocks[index].4)
+                        }
+                        Spacer()
+                    }
+                }.frame(width: screenWidth)
+                VStack{
+                    Spacer()
+                    ForEach(views, id: \.self) { viewIsMine in
+                        HStack {
+                            if viewIsMine{ Spacer() } else { Spacer().frame(width: 10) }
+                            ChatBubble(isMine: viewIsMine).frame(width: 150, height: 80)
+                            if viewIsMine{ Spacer().frame(width: 10) } else { Spacer() }
+                        }
                     }
                 }
-                chatBottom(views : $views, stocks : $stocks, stockLength: $stockLength)
             }
+            chatBottom(views : $views, stocks : $stocks, stockLength: $stockLength)
         }
     }
 }
@@ -161,8 +166,8 @@ struct chatBottom: View{
     
     // 양봉 음봉 추가 함수
     func addStockLine(stocks:[(Bool, Double, Double, Double, Double)]){
-        let randomHeightOfBox = Double.random(in: 0.4..<1.0) * 100.0
-        let randomHeightOfBox2 = Double.random(in: 0.1..<0.5) * 100.0
+        let randomHeightOfBox = Double.random(in: 0.3..<1.0) * 100.0
+        let randomHeightOfBox2 = Double.random(in: 0.1..<0.6) * 100.0
         let randomHeightOfUpLine = Double.random(in: 0.3..<1.0) * 10.0
         let randomHeightOfDownLine = Double.random(in: 0.3..<1.0) * 10.0
         let randomIntToDecidePlus = Int.random(in: 1...10)
@@ -172,12 +177,11 @@ struct chatBottom: View{
         
         let stock:(Bool, Double, Double, Double, Double) = (isPlus, isPlus ? randomHeightOfBox : randomHeightOfBox2, randomHeightOfUpLine, randomHeightOfDownLine, aboveHeight)
         
-        withAnimation{
-            self.stocks.append(stock)
-            self.stockLength.append(self.index)
-            self.index += 1
-        }
+        self.stocks.append(stock)
+        
+        self.stockLength.append(self.index)
+        self.index += 1
+
         nowHeight = aboveHeight
-        print("가나다")
     }
 }
