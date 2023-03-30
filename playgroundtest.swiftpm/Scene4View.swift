@@ -1,5 +1,6 @@
 import SwiftUI
 import Combine
+import AVFoundation
 
 struct Scene4View: View {
     @Binding var sceneNum: Int
@@ -10,6 +11,8 @@ struct Scene4View: View {
     @State var scale:CGFloat = 1.0
     @State var image = "background"
     @State var circleOpacity = 0.0
+    
+    @State var player: AVAudioPlayer?
     
     var simpleDrag: some Gesture {
         DragGesture()
@@ -48,6 +51,7 @@ struct Scene4View: View {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                             withAnimation(.easeInOut(duration: 0.3)) {
                                 circleOpacity = 1.0
+                                playswtichSound()
                             }
                         }
                     }
@@ -62,6 +66,7 @@ struct Scene4View: View {
                             // 지금으로부터 n초 뒤, 화면 전환
                             DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                                 // Change the value
+                                playbuttonSound()
                                 sceneNum = 5
                             }
                         }, label: {
@@ -78,6 +83,33 @@ struct Scene4View: View {
             ScaledToFitImage(fileName: "Frame_right_4Click")
         }.ignoresSafeArea()
     }
+    
+    func playbuttonSound() {
+        guard let url = Bundle.main.url(forResource: "button", withExtension: "mp3") else {
+            print("사운드못가져옴")
+            return }
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            player?.volume = 1.0
+            player?.play()
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func playswtichSound() {
+        guard let url = Bundle.main.url(forResource: "switch", withExtension: "mp3") else {
+            print("사운드못가져옴")
+            return }
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            player?.volume = 1.0
+            player?.play()
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+
 }
 
 extension CGSize {
@@ -85,3 +117,4 @@ extension CGSize {
         CGSize(width: lhs.width + rhs.width, height: lhs.height + rhs.height)
     }
 }
+
