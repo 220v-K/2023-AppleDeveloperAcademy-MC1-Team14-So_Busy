@@ -9,11 +9,20 @@ import Foundation
 import AVFoundation
 
 final class SoundManager: ObservableObject {
+    
+    enum Sound: String {
+        case paper1
+        case paper2
+        case thunder
+        case button
+    }
+    
     var audioPlayer: AVPlayer?
     
-    func play(sound fileName: String, volume: Float) {
+    func play(sound fileName: Sound, volume: Float) {
+        audioPlayer?.pause()
         
-        guard let url = Bundle.main.url(forResource: fileName, withExtension: "mp3") else {
+        guard let url = Bundle.main.url(forResource: fileName.rawValue, withExtension: "mp3") else {
             print("파일을 찾을 수 없음")
             return
         }

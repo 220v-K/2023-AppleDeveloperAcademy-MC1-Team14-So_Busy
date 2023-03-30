@@ -16,7 +16,7 @@ struct SceneThreeView: View {
     let onceCount = 3
     
     var body: some View {
-        HStack(spacing: 0) {
+        HStack(spacing: .zero) {
             ZStack {
                 GeometryReader { geometry in
                     ScaledToFitImage(fileName: Background.three)
@@ -24,7 +24,7 @@ struct SceneThreeView: View {
                     Color.black.opacity(opacity)
                     ScaledToFitImage(fileName: Frame.body)
                 }.gesture(
-                    DragGesture(minimumDistance: 0)
+                    DragGesture(minimumDistance: .zero)
                         .onEnded({ value in
                             var count = 1
                             Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
@@ -37,15 +37,12 @@ struct SceneThreeView: View {
                                 
                                 count += 1
                                 papers.append(paperObject)
-                                soundManager.play(sound: "paper\(Int.random(in:1...2))", volume: 1.0)
+                                soundManager.play(sound: .paper1, volume: 1.0)
                             }
                         })
                 )
             }
-            ScaledToFitImage(fileName: Frame.ButtonClicked.three)
-                .onTapGesture {
-                    sceneNum += 1
-                }
+            FrameLeftView(sceneNum: $sceneNum)
         }
         .ignoresSafeArea()
     }

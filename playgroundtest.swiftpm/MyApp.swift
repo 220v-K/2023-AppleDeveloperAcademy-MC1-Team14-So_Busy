@@ -23,9 +23,8 @@ struct MyApp: App {
 //            case 6:
                 
             default:
-                SceneSixView()
+                SceneSixView(sceneNum: $sceneNum)
             }
         }
     }
 }
-
