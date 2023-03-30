@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SpriteKit
 
 struct SceneThreeView: View {
     @State private var cookies = [Cookie]()
