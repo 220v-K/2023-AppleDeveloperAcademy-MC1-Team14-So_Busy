@@ -15,14 +15,14 @@ struct FrameLeftView: View {
         ScaledToFitImage(fileName: image)
             .gesture( DragGesture(minimumDistance: 0)
                 .onEnded({ value in
-                    soundManager.play(sound: .button, volume: 1.0)
+                    print("onEnd")
                     
-                    let x = value.location.x, y = value.location.y
+//                    let x = value.location.x, y = value.location.y
                     
-                    if (46...125).contains(x),
-                       (650...730).contains(y) {
-                        image = Frame.ButtonClicked.none
-                    }
+//                    if (46...125).contains(x),
+//                       (650...730).contains(y) {
+//                        image = Frame.ButtonClicked.none
+//                    }
                     
                 })
                     .onChanged({ value in
