@@ -53,7 +53,7 @@ struct SceneThreeView: View {
                             cookies[index].isAdded = true
                             
                         }
-                        withAnimation(.easeInOut(duration: 1.5)) {
+                        withAnimation(.easeInOut(duration: 2)) {
                             self.opacity = Double(cookies.count) / 6.0
                         }
                     }
