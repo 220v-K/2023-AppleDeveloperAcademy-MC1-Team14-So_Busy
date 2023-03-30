@@ -189,8 +189,8 @@ struct chatBottom: View{
     func addStockLine(stocks:[(Bool, Double, Double, Double, Double)]){
         let randomHeightOfBox = Double.random(in: 0.3..<1.0) * 100.0
         let randomHeightOfBox2 = Double.random(in: 0.1..<0.6) * 100.0
-        let randomHeightOfUpLine = Double.random(in: 0.3..<1.0) * 30.0
-        let randomHeightOfDownLine = Double.random(in: 0.3..<1.0) * 30.0
+        let randomHeightOfUpLine = Double.random(in: 0.2..<0.8) * 50.0
+        let randomHeightOfDownLine = Double.random(in: 0.2..<0.8) * 50.0
         let randomIntToDecidePlus = Int.random(in: 1...10)
         
         let isPlus:Bool = randomIntToDecidePlus <= 6
