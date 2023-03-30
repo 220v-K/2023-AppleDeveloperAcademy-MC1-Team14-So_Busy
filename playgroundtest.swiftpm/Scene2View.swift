@@ -30,33 +30,33 @@ struct Scene2View: View {
             if showLetters {
                 ZStack{
                     // 잔상 효과. 샤샤샥!
-                    ForEach(nums, id: \.self){ i in
-                        Text(letters[index])
-                            .fontWeight(.bold)
-                            .foregroundColor(.white).opacity(0.6 + 0.2*Double(i))
-                            .font(.system(size: 100))
-                            .rotationEffect(Angle.degrees(Double(3*i + 6)))
-                        Text(letters[index])
-                            .fontWeight(.bold)
-                            .foregroundColor(.white).opacity(0.6 + 0.2*Double(i))
-                            .font(.system(size: 100))
-                            .rotationEffect(Angle.degrees(Double(-3*i - 6)))
-                    }
-                    ForEach(nums, id: \.self){ i in
-                        Text(letters[index])
-                            .fontWeight(.bold)
-                            .foregroundColor(.black).opacity(1.0 - 0.2*Double(i))
-                            .font(.system(size: 100))
-                            .rotationEffect(Angle.degrees(Double(3*i)))
-                        Text(letters[index])
-                            .fontWeight(.bold)
-                            .foregroundColor(.black).opacity(1.0 - 0.2*Double(i))
-                            .font(.system(size: 100))
-                            .rotationEffect(Angle.degrees(Double(-3*i)))
-                    }
+//                    ForEach(nums, id: \.self){ i in
+//                        Text(letters[index])
+//                            .fontWeight(.bold)
+//                            .foregroundColor(.white).opacity(0.6 + 0.2*Double(i))
+//                            .font(.system(size: 100))
+//                            .rotationEffect(Angle.degrees(Double(3*i + 6)))
+//                        Text(letters[index])
+//                            .fontWeight(.bold)
+//                            .foregroundColor(.white).opacity(0.6 + 0.2*Double(i))
+//                            .font(.system(size: 100))
+//                            .rotationEffect(Angle.degrees(Double(-3*i - 6)))
+//                    }
+//                    ForEach(nums, id: \.self){ i in
+//                        Text(letters[index])
+//                            .fontWeight(.bold)
+//                            .foregroundColor(.black).opacity(1.0 - 0.2*Double(i))
+//                            .font(.system(size: 100))
+//                            .rotationEffect(Angle.degrees(Double(3*i)))
+//                        Text(letters[index])
+//                            .fontWeight(.bold)
+//                            .foregroundColor(.black).opacity(1.0 - 0.2*Double(i))
+//                            .font(.system(size: 100))
+//                            .rotationEffect(Angle.degrees(Double(-3*i)))
+//                    }
                     Text(letters[index])
                         .fontWeight(.bold)
-                        .foregroundColor(.black)
+                        .foregroundColor(.white)
                         .font(.system(size: 100))
                 }.scaleEffect(scale)
                 .rotationEffect(angle)
