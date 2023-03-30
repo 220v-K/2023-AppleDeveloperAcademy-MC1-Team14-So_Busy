@@ -33,9 +33,15 @@ let package = Package(
             ]
         )
     ],
+    dependencies: [
+        .package(url: "https://github.com/SDWebImage/SDWebImageWebPCoder.git", "0.9.1"..<"1.0.0")
+    ],
     targets: [
         .executableTarget(
             name: "AppModule",
+            dependencies: [
+                .product(name: "SDWebImageWebPCoder", package: "sdwebimagewebpcoder")
+            ],
             path: ".",
             resources: [
                 .process("Resources")

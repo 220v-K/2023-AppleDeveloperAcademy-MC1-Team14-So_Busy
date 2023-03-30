@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     var body: some View {
         HStack(spacing: 0) {
             ZStack {
@@ -8,11 +9,8 @@ struct ContentView: View {
                     VideoView(videoNames: ["video", "video2"])
                 }
             }
-            ZStack {
-                Color.green
-                    .frame(width: 200)
-                Text("대충 카세트 버튼")
-            }
+            
+            TapeButtonImageView()
         }
         .ignoresSafeArea()
     }
