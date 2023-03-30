@@ -196,7 +196,7 @@ struct chatBottom: View{
         }
         
         
-        if(stockLength.count < 25){
+        if(stockLength.count < 24){
             self.stockLength.append(self.index)
             self.index += 1
         }
