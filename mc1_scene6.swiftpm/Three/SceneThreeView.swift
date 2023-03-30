@@ -25,13 +25,13 @@ struct SceneThreeView: View {
                             DragGesture(minimumDistance: 0)
                                 .onEnded({ value in
                                     var count = 1
-
-                                    Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) { timer in
+                                    Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
                                         if (count == onceCount) {
                                             timer.invalidate()
                                         }
-                                        let position = CGSize(width: value.location.x + .random(in: -20...60), height: value.location.y + .random(in: -45...45))
-                                        let paperObject = Paper(position: position)
+                                        let degree: Double = .random(in: -20...20)
+                                        let position = CGPoint(x:value.location.x + .random(in: -20...60), y: value.location.y + .random(in: -45...45))
+                                        let paperObject = Paper(name:"paper_\(Int.random(in: 1...6))", position: position, degree: degree)
                                         
                                         count += 1
                                         papers.append(paperObject)
@@ -50,14 +50,12 @@ struct SceneThreeView: View {
     func CookiesView(size: CGFloat) -> some View {
         Group {
             ForEach(papers.indices, id: \.self) { index in
-                let rotation: Double = .random(in: -20...20)
-                
-                BackgroundView(name:"3_paper_1")
-//                    .resizable()
+                Image(papers[index].name)
+                    .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: size, height: size)
-                    .offset(x:papers[index].position.width, y: papers[index].position.height)
-                    .rotationEffect(.init(degrees: rotation))
+                    .offset(x:papers[index].x, y: papers[index].y)
+                    .rotationEffect(.init(degrees: papers[index].degree))
                     .scaleEffect(papers[index].isAdded ? 1 : 20, anchor: .center)
                     .onAppear {
                         withAnimation(.easeInOut(duration: 0.5)) {

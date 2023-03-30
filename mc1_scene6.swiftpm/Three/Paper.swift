@@ -9,7 +9,11 @@ import Foundation
 // Cookie Model...
 struct Paper: Identifiable {
     var id = UUID()
+    var name: String
     var isAdded: Bool = false
-    var position: CGSize
+    var position: CGPoint
+    var degree: Double
+    var x: CGFloat { position.x }
+    var y: CGFloat { position.y }
 }
 
