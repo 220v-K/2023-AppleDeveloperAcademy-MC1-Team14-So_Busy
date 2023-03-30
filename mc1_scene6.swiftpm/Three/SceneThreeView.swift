@@ -1,5 +1,5 @@
 //
-//  SceneThreeView.swift
+//  SceneThree.swift
 //  mc1_scene3
 //
 //  Created by sei on 2023/03/29.
@@ -19,6 +19,7 @@ struct SceneThreeView: View {
                     CookiesView(size: geometry.size.height / 5)
                     Color.black
                         .opacity(opacity)
+                    TapeImageView(type: TapeImage.body)
                         .gesture(
                             DragGesture(minimumDistance: 0)
                                 .onEnded({ value in
@@ -28,12 +29,11 @@ struct SceneThreeView: View {
                                 })
                         )
                 }
+                
             }
-            ZStack {
-                Color.yellow
-                    .frame(width: 200)
-                Text("대충 카세트 버튼")
-            }
+//            Image("frame_right")
+//                .resizable()
+            TapeImageView(type: TapeImage.button)
         }
         .ignoresSafeArea()
     }

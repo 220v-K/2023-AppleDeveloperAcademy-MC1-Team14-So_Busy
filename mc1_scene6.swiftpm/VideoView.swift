@@ -27,7 +27,7 @@ struct VideoView: View {
             }
             .onTapGesture {
                 self.customPlayer.pause()
-                self.customPlayer = AVPlayer(url: Bundle.main.url(forResource: "video2", withExtension: "mp4")!)
+                self.customPlayer = AVPlayer(url: Bundle.main.url(forResource: "video", withExtension: "mp4")!)
                 self.customPlayer.play()
             }
         
