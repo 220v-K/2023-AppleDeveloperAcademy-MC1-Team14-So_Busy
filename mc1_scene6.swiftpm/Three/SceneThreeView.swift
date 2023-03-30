@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct SceneThreeView: View {
-    @State private var cookies = [Cookie]()
+    @State private var papers = [Paper]()
     @State private var opacity = 0.01
+    let onceCount = 3
     
     var body: some View {
         HStack(spacing: 0) {
             ZStack {
                 GeometryReader { geometry in
-                    BackgroundView(name: "scene3background")
+                    Image("bg_3")
                     CookiesView(size: geometry.size.height / 3)
                     Color.black
                         .opacity(opacity)
@@ -23,8 +24,19 @@ struct SceneThreeView: View {
                         .gesture(
                             DragGesture(minimumDistance: 0)
                                 .onEnded({ value in
-                                    let cookieObject = Cookie(position: value.location)
-                                    cookies.append(cookieObject)
+                                    var count = 1
+
+                                    Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) { timer in
+                                        if (count == onceCount) {
+                                            timer.invalidate()
+                                        }
+                                        let position = CGSize(width: value.location.x + .random(in: -20...60), height: value.location.y + .random(in: -45...45))
+                                        let paperObject = Paper(position: position)
+                                        
+                                        count += 1
+                                        papers.append(paperObject)
+                                        print("[DEBUG] - Number: \(count)")
+                                    }
                                 })
                         )
                 }
@@ -37,19 +49,22 @@ struct SceneThreeView: View {
     @ViewBuilder
     func CookiesView(size: CGFloat) -> some View {
         Group {
-            ForEach(cookies.indices, id: \.self) { index in
+            ForEach(papers.indices, id: \.self) { index in
+                let rotation: Double = .random(in: -20...20)
+                
                 BackgroundView(name:"3_paper_1")
 //                    .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: size, height: size)
-                    .offset(x:cookies[index].x, y: cookies[index].y)
-                    .scaleEffect(cookies[index].isAdded ? 1 : 20, anchor: .center)
+                    .offset(x:papers[index].position.width, y: papers[index].position.height)
+                    .rotationEffect(.init(degrees: rotation))
+                    .scaleEffect(papers[index].isAdded ? 1 : 20, anchor: .center)
                     .onAppear {
-                        withAnimation(.easeInOut(duration: 1)) {
-                            cookies[index].isAdded = true
+                        withAnimation(.easeInOut(duration: 0.5)) {
+                            papers[index].isAdded = true
                         }
-                        withAnimation(.easeInOut(duration: 1)) {
-                            self.opacity = Double(cookies.count) / 12
+                        withAnimation(.easeInOut(duration: 0.5)) {
+                            self.opacity = Double(papers.count) / (12 * Double(onceCount))
                         }
                     }
             }
