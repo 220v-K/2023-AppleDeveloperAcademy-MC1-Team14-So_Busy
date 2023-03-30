@@ -57,6 +57,7 @@ struct Scene4View: View {
                             print("tapped!")
                             withAnimation(.easeInOut(duration: 2.0)){
                                 scale = 30.0
+                                image = "white"
                             }
                             // 지금으로부터 n초 뒤, 화면 전환
                             DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
