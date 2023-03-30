@@ -12,13 +12,14 @@ struct SceneSixView: View {
         HStack(spacing: 0) {
             ZStack {
                 VideoView(videoNames: ["video2", "video"])
-                TapeImageView(type: TapeImage.body)
+                ScaledToFitImage(fileName: "Frame_left")
             }
-            TapeImageView(type: TapeImage.button)
+            ScaledToFitImage(fileName: "Frame_right")
         }
         .ignoresSafeArea()
     }
 }
+
 
 struct SceneSixView_Previews: PreviewProvider {
     static var previews: some View {

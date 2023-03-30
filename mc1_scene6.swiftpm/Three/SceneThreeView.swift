@@ -61,8 +61,8 @@ struct SceneThreeView: View {
                         withAnimation(.easeInOut(duration: 0.5)) {
                             papers[index].isAdded = true
                         }
-                        withAnimation(.easeInOut(duration: 0.5)) {
-                            self.opacity = Double(papers.count) / (12 * Double(onceCount))
+                        DispatchQueue.global().asyncAfter(deadline: .now() + 0.5) {
+                            self.opacity = Double(papers.count) / (6 * Double(onceCount))
                         }
                     }
             }
