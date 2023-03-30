@@ -2,7 +2,7 @@ import SwiftUI
 
 @main
 struct MyApp: App {
-    @State var sceneNum: Int = 5
+    @State var sceneNum: Int = 1
     
     var body: some Scene {
         WindowGroup {
@@ -10,8 +10,8 @@ struct MyApp: App {
             switch(sceneNum){
 //            case 0:
 //
-//            case 1:
-                
+            case 1:
+                FirstScene(sceneNum: $sceneNum)
             case 2:
                 Scene2View(sceneNum: $sceneNum)
             case 3:

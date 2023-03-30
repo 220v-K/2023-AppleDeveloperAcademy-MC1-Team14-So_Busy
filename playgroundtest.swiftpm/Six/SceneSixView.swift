@@ -14,7 +14,7 @@ struct SceneSixView: View {
                 VideoView(videoNames: ["video2", "video"])
                 ScaledToFitImage(fileName: "Frame_left")
             }
-            ScaledToFitImage(fileName: "Frame_right")
+            ScaledToFitImage(fileName: "Frame_right_6Click")
         }
         .ignoresSafeArea()
     }
