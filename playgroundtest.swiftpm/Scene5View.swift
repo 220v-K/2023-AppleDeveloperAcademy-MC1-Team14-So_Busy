@@ -53,7 +53,7 @@ struct Scene5View: View {
                     Spacer().frame(height: 40)
                 }
             }
-            FrameLeftView(sceneNum: $sceneNum).onTapGesture {
+            ScaledToFitImage(fileName: "Frame_right_5Click").onTapGesture {
                     sceneNum += 1
                 }
         }.ignoresSafeArea()
@@ -125,6 +125,8 @@ struct ChatBubble: View {
 }
 
 struct chatBottom: View{
+    @StateObject private var soundManager = SoundManager()
+    
     @Binding var views:[Bool]
     @Binding var stocks: [(Bool, Double, Double, Double, Double)]
     @Binding var stockLength: [Int]
@@ -165,6 +167,8 @@ struct chatBottom: View{
                     views.removeFirst()
                     // 양봉 음봉 랜덤 추가 (3:7정도의 비율과 확률, 양봉의 길이가 더 길 수 있도록 확률 높이기)
                     addStockLine(stocks: stocks)
+                    // iMessage 소리 재생
+                    soundManager.play(sound: .iMessage, volume: 1.0)
                 }
             }) {
                 Image(systemName: "arrow.up.circle")
