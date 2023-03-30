@@ -19,3 +19,9 @@ struct SceneSixView: View {
         .ignoresSafeArea()
     }
 }
+
+struct SceneSixView_Previews: PreviewProvider {
+    static var previews: some View {
+        SceneSixView()
+    }
+}
