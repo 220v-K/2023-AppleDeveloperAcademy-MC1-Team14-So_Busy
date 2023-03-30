@@ -9,7 +9,7 @@ struct Scene4View: View {
     @State private var accumulatedOffset = CGSize.zero
     
     @State var scale:CGFloat = 1.0
-    @State var image = "background"
+    @State var image = "bg4"
     @State var circleOpacity = 0.0
     
     @State var player: AVAudioPlayer?
