@@ -51,7 +51,7 @@ struct Scene4View: View {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                             withAnimation(.easeInOut(duration: 0.3)) {
                                 circleOpacity = 1.0
-                                playbuttonSound()
+                                playswtichSound()
                             }
                         }
                     }
@@ -66,7 +66,7 @@ struct Scene4View: View {
                             // 지금으로부터 n초 뒤, 화면 전환
                             DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                                 // Change the value
-                                playswtichSound()
+                                playbuttonSound()
                                 sceneNum = 5
                             }
                         }, label: {
