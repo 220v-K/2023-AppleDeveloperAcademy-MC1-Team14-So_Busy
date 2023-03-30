@@ -23,7 +23,6 @@ struct SceneThreeView: View {
                         .gesture(
                             DragGesture(minimumDistance: 0)
                                 .onEnded({ value in
-                                    print(value.location)
                                     let cookieObject = Cookie(position: value.location)
                                     cookies.append(cookieObject)
                                 })
@@ -49,7 +48,7 @@ struct SceneThreeView: View {
                         withAnimation(.easeInOut(duration: 1)) {
                             cookies[index].isAdded = true
                         }
-                        withAnimation(.easeInOut(duration: 2)) {
+                        withAnimation(.easeInOut(duration: 1)) {
                             self.opacity = Double(cookies.count) / 12
                         }
                     }
