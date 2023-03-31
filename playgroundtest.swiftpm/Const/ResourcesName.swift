@@ -25,3 +25,8 @@ enum Background {
     static let one = ""
     static let three = "bg_3"
 }
+
+enum Video {
+    static let normal = "six"
+    static let rew = "six_rew"
+}
