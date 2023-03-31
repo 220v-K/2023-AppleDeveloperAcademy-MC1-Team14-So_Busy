@@ -47,7 +47,6 @@ struct Scene4View: View {
                         }.scaleEffect(scale).offset(draggedOffset).gesture(simpleDrag).opacity(circleOpacity)
                     }
                     .onAppear {
-                        
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                             withAnimation(.easeInOut(duration: 0.3)) {
                                 circleOpacity = 1.0

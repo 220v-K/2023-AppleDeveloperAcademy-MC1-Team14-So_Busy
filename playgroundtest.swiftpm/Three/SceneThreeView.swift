@@ -42,7 +42,10 @@ struct SceneThreeView: View {
                         })
                 )
             }
-            FrameLeftView(sceneNum: $sceneNum)
+//            FrameLeftView(sceneNum: $sceneNum)
+            ScaledToFitImage(fileName: "Frame_right_3Click").onTapGesture {
+                sceneNum = 4
+            }
         }
         .ignoresSafeArea()
     }
