@@ -1,8 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "#4_배경_열쇠 포함.png",
-      "idiom" : "universal"
+      "filename" : "background.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {
