@@ -15,7 +15,7 @@ struct TotalSceneView: View {
                 Group {
                     switch sceneManager.currentScene {
                     case .zero:
-                        Text("zero")
+                        Scene0View()
                     case .one:
                         Scene1View()
                     case .two:

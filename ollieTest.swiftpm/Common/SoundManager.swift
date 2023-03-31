@@ -15,6 +15,8 @@ final class SoundManager: ObservableObject {
         case paper2
         case thunder
         case button
+        case iMessage
+        case introTapeSound
     }
     
     var audioPlayer: AVPlayer?
@@ -31,3 +33,4 @@ final class SoundManager: ObservableObject {
         audioPlayer?.play()
     }
 }
+
