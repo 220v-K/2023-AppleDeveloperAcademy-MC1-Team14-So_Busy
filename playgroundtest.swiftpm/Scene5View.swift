@@ -167,10 +167,11 @@ struct chatBottom: View{
                 views.append(isMineToggle)
                 isMineToggle.toggle()
                 soundManager.play(sound: .iMessage, volume: 1.0)
+                addStockLine(stocks: stocks)
                 if(views.count >= 8 ){
                     views.removeFirst()
                     // 양봉 음봉 랜덤 추가 (3:7정도의 비율과 확률, 양봉의 길이가 더 길 수 있도록 확률 높이기)
-                    addStockLine(stocks: stocks)
+                    
                     // iMessage 소리 재생
                     
                 }
