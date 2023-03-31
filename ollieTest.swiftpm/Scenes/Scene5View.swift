@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct Scene5View: View {
-    @EnvironmentObject private var sceneManager: SceneManager
+    @Binding var sceneNum: Int
+    
     
     let screenWidth = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
@@ -19,37 +21,43 @@ struct Scene5View: View {
     @State var stockLength: [Int] = []
     
     var body: some View {
-        ZStack {
-            VStack{
-                Spacer().frame(height: 40)
-                ZStack{
-                    // 주식 그래프 표시
-                    VStack{
-                        Spacer()
-                        HStack(alignment: .bottom){
-                            Spacer().frame(width: 50)
-                            ForEach(stockLength, id: \.self) { index in
-                                stockLineBox(isPlus: stocks[index].0, boxHeight: stocks[index].1, upLineHeight: stocks[index].2, downLineHeight: stocks[index].3, height: stocks[index].4)
-                            }
+        HStack(spacing: .zero) {
+            ZStack {
+                Image("Frame_left").resizable()
+                VStack{
+                    Spacer().frame(height: 40)
+                    ZStack{
+                        // 주식 그래프 표시
+                        VStack{
                             Spacer()
-                            Spacer().frame(width: 20)
+                            HStack(alignment: .bottom){
+                                Spacer().frame(width: 50)
+                                ForEach(stockLength, id: \.self) { index in
+                                    stockLineBox(isPlus: stocks[index].0, boxHeight: stocks[index].1, upLineHeight: stocks[index].2, downLineHeight: stocks[index].3, height: stocks[index].4)
+                                }
+                                Spacer()
+                                Spacer().frame(width: 20)
+                            }
                         }
-                    }
-                    VStack{
-                        Spacer()
-                        ForEach(views, id: \.self) { viewIsMine in
-                            HStack {
-                                if viewIsMine{ Spacer() } else { Spacer().frame(width: 30) }
-                                ChatBubble(isMine: viewIsMine).frame(width: 150, height: 80)
-                                if viewIsMine{ Spacer().frame(width: 20) } else { Spacer() }
+                        VStack{
+                            Spacer()
+                            ForEach(views, id: \.self) { viewIsMine in
+                                HStack {
+                                    if viewIsMine{ Spacer() } else { Spacer().frame(width: 30) }
+                                    ChatBubble(isMine: viewIsMine).frame(width: 150, height: 80)
+                                    if viewIsMine{ Spacer().frame(width: 20) } else { Spacer() }
+                                }
                             }
                         }
                     }
+                    chatBottom(views : $views, stocks : $stocks, stockLength: $stockLength)
+                    Spacer().frame(height: 40)
                 }
-                chatBottom(views : $views, stocks : $stocks, stockLength: $stockLength)
-                Spacer().frame(height: 40)
             }
-        }
+            ScaledToFitImage(fileName: "Frame_right_5Click").onTapGesture {
+                    sceneNum += 1
+                }
+        }.ignoresSafeArea()
     }
 }
 
@@ -118,6 +126,10 @@ struct ChatBubble: View {
 }
 
 struct chatBottom: View{
+    @StateObject private var soundManager = SoundManager()
+    
+    @State var player: AVAudioPlayer?
+
     @Binding var views:[Bool]
     @Binding var stocks: [(Bool, Double, Double, Double, Double)]
     @Binding var stockLength: [Int]
@@ -154,10 +166,14 @@ struct chatBottom: View{
             Button(action: {
                 views.append(isMineToggle)
                 isMineToggle.toggle()
+                soundManager.play(sound: .iMessage, volume: 1.0)
+                addStockLine(stocks: stocks)
                 if(views.count >= 8 ){
                     views.removeFirst()
                     // 양봉 음봉 랜덤 추가 (3:7정도의 비율과 확률, 양봉의 길이가 더 길 수 있도록 확률 높이기)
-                    addStockLine(stocks: stocks)
+                    
+                    // iMessage 소리 재생
+                    
                 }
             }) {
                 Image(systemName: "arrow.up.circle")
@@ -174,8 +190,8 @@ struct chatBottom: View{
     func addStockLine(stocks:[(Bool, Double, Double, Double, Double)]){
         let randomHeightOfBox = Double.random(in: 0.3..<1.0) * 100.0
         let randomHeightOfBox2 = Double.random(in: 0.1..<0.6) * 100.0
-        let randomHeightOfUpLine = Double.random(in: 0.3..<1.0) * 10.0
-        let randomHeightOfDownLine = Double.random(in: 0.3..<1.0) * 10.0
+        let randomHeightOfUpLine = Double.random(in: 0.2..<0.8) * 50.0
+        let randomHeightOfDownLine = Double.random(in: 0.2..<0.8) * 50.0
         let randomIntToDecidePlus = Int.random(in: 1...10)
         
         let isPlus:Bool = randomIntToDecidePlus <= 6
@@ -195,4 +211,18 @@ struct chatBottom: View{
         }
         nowHeight = aboveHeight
     }
+    
+    func playiMessageSound() {
+        guard let url = Bundle.main.url(forResource: "iMessage", withExtension: "mp3") else {
+            print("사운드못가져옴")
+            return }
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            player?.volume = 1.0
+            player?.play()
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
 }
+
