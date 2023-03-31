@@ -42,16 +42,10 @@ class SceneManager: ObservableObject {
     @Published var sceneThreePapers = [Paper]()
     @Published var sceneOneOpacity = 1.0
     func changeScene(to scene: SceneModel.SceneType) {
-        if currentScene == .one && scene == .two {
-            withAnimation(.easeInOut(duration: 0.3)) {
-                sceneOneOpacity = 0.0
-            }
-            Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { [weak self] _ in
-                self?.model.changeScene(to: scene)
-                self?.sceneOneOpacity = 1.0
-            }
-        } else {
-            
+        if currentScene != .six && scene == .rew {
+            return
+        }
+        else {
             model.changeScene(to: scene)
         }
     }
